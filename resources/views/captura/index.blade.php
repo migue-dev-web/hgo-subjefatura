@@ -48,6 +48,9 @@
                 </div>
             @endif
 
+
+
+            @can('RRHH')
             {{-- SECCIÓN: GESTIÓN DE RECURSO HUMANO --}}
             <div class="bg-white shadow-sm rounded-2xl border border-gray-100 overflow-hidden">
                 <div class="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gray-50/80">
@@ -197,7 +200,7 @@
                     </div>
                 </form>
             </div>
-
+            @endcan
             {{-- SECCIÓN: PRODUCTIVIDAD POR SERVICIO (hospitalización) --}}
             <div class="bg-white shadow-sm rounded-2xl border border-gray-100 overflow-hidden">
                 <div class="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gray-50/80">
@@ -314,6 +317,8 @@
                 </form>
             </div>
 
+
+            @can('TOCO-CIR')
             {{-- SECCIÓN: PRODUCTIVIDAD TOCO CIRUGÍA --}}
             <div class="bg-white shadow-sm rounded-2xl border border-gray-100 overflow-hidden">
                 <div class="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gray-50/80">
@@ -457,7 +462,8 @@
                     </div>
                 </form>
             </div>
-
+            @endcan
+            @can('Quirofano')
             {{-- SECCIÓN: PRODUCTIVIDAD QUIRÓFANOS --}}
             <div class="bg-white shadow-sm rounded-2xl border border-gray-100 overflow-hidden">
                 <div class="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gray-50/80">
@@ -543,7 +549,8 @@
                     </div>
                 </form>
             </div>
-
+            @endcan
+            @can('ConExt')
             {{-- SECCIÓN: PRODUCTIVIDAD CONSULTA EXTERNA --}}
             <div class="bg-white shadow-sm rounded-2xl border border-gray-100 overflow-hidden">
                 <div class="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gray-50/80">
@@ -733,7 +740,8 @@
                     </div>
                 </form>
             </div>
-
+            @endcan
+            @can('autoclaves')
             {{-- SECCIÓN: PRODUCTIVIDAD AUTOCLAVES --}}
             <div class="bg-white shadow-sm rounded-2xl border border-gray-100 overflow-hidden">
                 <div class="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gray-50/80">
@@ -779,7 +787,7 @@
                     </div>
                 </form>
             </div>
-
+            @endcan
             {{-- SECCIÓN: TOTAL DE DEFUNCIONES --}}
             <div class="bg-white shadow-sm rounded-2xl border border-gray-100 overflow-hidden">
                 <div class="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gray-50/80">

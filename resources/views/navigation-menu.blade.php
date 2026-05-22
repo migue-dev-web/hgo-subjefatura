@@ -19,6 +19,7 @@
                         Captura diaria
                     </x-nav-link>
 
+                    
                     <x-nav-link href="{{ route('informes.index') }}" :active="request()->routeIs('informes.*')">
                         Informes
                     </x-nav-link>

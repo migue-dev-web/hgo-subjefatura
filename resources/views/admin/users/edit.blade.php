@@ -66,25 +66,56 @@
                 </div>
             </div>
 
-            {{-- Es administrador --}}
-            <div>
-                <label class="inline-flex items-center gap-2">
-                    <input
-                        type="checkbox"
-                        name="is_admin"
-                        value="1"
-                        class="rounded border-gray-300 text-emerald-600 shadow-sm focus:ring-emerald-500"
-                        {{ old('is_admin', $user->is_admin) ? 'checked' : '' }}
-                    >
-                    <span class="text-sm text-gray-700">
-                        Usuario administrador
-                    </span>
-                </label>
-            </div>
+           {{-- Sección y Nivel de Acceso Granular --}}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-gray-100 pt-4">
+    
+    @if(auth()->user()->profile?->nivel === 3)
+        {{-- MODO ADMINISTRADOR GLOBAL (Nivel 3): Puede cambiar todo --}}
+        <div>
+            <x-input-label for="seccion" value="Sección asignada" />
+            <select id="seccion" name="seccion" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm text-sm" required>
+                <option value="general" @selected(old('seccion', $user->profile?->seccion) == 'general')>General</option>
+                <option value="rh" @selected(old('seccion', $user->profile?->seccion) == 'rh')>RRHH</option>
+                <option value="Quirofano" @selected(old('seccion', $user->profile?->seccion) == 'Quirofano')>Quirofano</option>
+                <option value="ConExt" @selected(old('seccion', $user->profile?->seccion) == 'ConExt')>Consulta externa</option>
+                <option value="autoclaves" @selected(old('seccion', $user->profile?->seccion) == 'autoclaves')>Autoclaves</option>
+                <option value="TOCO-cir" @selected(old('seccion', $user->profile?->seccion) == 'TOCO-cir')>TOCO Cirugia</option>
+            </select>
+            <x-input-error for="seccion" class="mt-1" />
+        </div>
 
-            <div class="flex justify-end gap-2">
+        <div>
+            <x-input-label for="nivel" value="Nivel de acceso en la sección" />
+            <select id="nivel" name="nivel" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm text-sm" required>
+                <option value="1" @selected(old('nivel', $user->profile?->nivel) == 1)>Nivel 1: Consultor / Lector</option>
+                <option value="2" @selected(old('nivel', $user->profile?->nivel) == 2)>Nivel 2: Editor / Supervisor</option>
+                <option value="3" @selected(old('nivel', $user->profile?->nivel) == 3)>Nivel 3: Administrador Total</option>
+            </select>
+            <x-input-error for="nivel" class="mt-1" />
+        </div>
+    @else
+        {{-- MODO SUPERVISOR (Nivel 2): Solo lectura informativa de estos campos --}}
+        <div>
+            <x-input-label value="Sección del usuario" />
+            <div class="mt-2 px-3 py-2 bg-gray-50 border border-gray-200 text-gray-600 rounded-md text-sm uppercase font-semibold tracking-wider">
+                {{ $user->profile?->seccion ?? 'Sin Sección' }}
+            </div>
+            <p class="text-[11px] text-gray-400 mt-1">No tienes permisos para trasladar usuarios de sección.</p>
+        </div>
+
+        <div>
+            <x-input-label value="Nivel de acceso" />
+            <div class="mt-2 px-3 py-2 bg-gray-50 border border-gray-200 text-gray-600 rounded-md text-sm font-medium">
+                Nivel {{ $user->profile?->nivel ?? 1 }} (Consultor / Lector)
+            </div>
+            <p class="text-[11px] text-gray-400 mt-1">Solo un administrador global puede escalar este nivel.</p>
+        </div>
+    @endif
+</div>
+
+            <div class="flex justify-end gap-2 pt-2">
                 <a href="{{ route('admin.users.index') }}"
-                   class="text-sm text-gray-600 hover:text-gray-800">
+                   class="text-sm text-gray-600 hover:text-gray-800 self-center mr-2">
                     Cancelar
                 </a>
 

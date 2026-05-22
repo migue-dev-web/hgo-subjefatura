@@ -22,3 +22,9 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+.env.dusk.local
+phpstan.neon
+phpunit.dusk.xml
+tests/Browser/
+tests/DuskTestCase.php
